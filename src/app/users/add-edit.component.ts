@@ -32,8 +32,7 @@ export class AddEditComponent implements OnInit {
         }
 
         this.form = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
+            email: ['', Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")],          
             username: ['', Validators.required],
             password: ['', passwordValidators]
         });
@@ -42,8 +41,7 @@ export class AddEditComponent implements OnInit {
             this.accountService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.firstName.setValue(x.firstName);
-                    this.f.lastName.setValue(x.lastName);
+                    this.f.email.setValue(x.email);                    
                     this.f.username.setValue(x.username);
                 });
         }
