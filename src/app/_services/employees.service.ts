@@ -64,7 +64,7 @@ export class EmployeesService {
         //     // update stored user if the logged in user updated their own record
         //     if (id == this.employeeValue.id) {
         //         // update local storage
-        //         const user = { ...this.employeeValue, ...params };
+        //         const employee = { ...this.employeeValue, ...params };
         //         localStorage.setItem('employee', JSON.stringify(employee));
 
         //         // publish updated user to subscribers

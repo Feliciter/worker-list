@@ -109,21 +109,22 @@ export class AddEditEmployeesComponent implements OnInit {
   private updateEmployee() {
 
     console.log('updateEmployee')
+    console.log(this.form.value)
 
-    // this.employeesService
-    //   .update(this.id, this.form.value)
-    //   .pipe(first())
-    //   .subscribe(
-    //     (data) => {
-    //       this.alertService.success("Update successful", {
-    //         keepAfterRouteChange: true,
-    //       });
-    //       this.router.navigate(["..", { relativeTo: this.route }]);
-    //     },
-    //     (error) => {
-    //       this.alertService.error(error);
-    //       this.loading = false;
-    //     }
-    //   );
+    this.employeesService
+      .update(this.id, this.form.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.alertService.success("Update successful", {
+            keepAfterRouteChange: true,
+          });
+          this.router.navigate(["..", { relativeTo: this.route }]);
+        },
+        (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
   }
 }
