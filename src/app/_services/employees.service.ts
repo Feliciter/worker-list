@@ -6,23 +6,23 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '.././../environments/environment';
 import { Employee } from '../_models';
-import { User } from '../_models';
+
 
 @Injectable({ providedIn: 'root' })
 export class EmployeesService {
-    private EmployeeSubject: BehaviorSubject<Employee>;
-    public Employee: Observable<Employee>;
+    private employeeSubject: BehaviorSubject<Employee>;
+    public employee: Observable<Employee>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.EmployeeSubject = new BehaviorSubject<Employee>(JSON.parse(localStorage.getItem('Employee')));
-        this.Employee = this.EmployeeSubject.asObservable();
+        this.employeeSubject = new BehaviorSubject<Employee>(JSON.parse(localStorage.getItem('employee')));
+        this.employee = this.employeeSubject.asObservable();
     }
 
-    public get EmployeeValue(): Employee {
-        return this.EmployeeSubject.value;
+    public get employeeValue(): Employee {
+        return this.employeeSubject.value;
     }
 
     // login(Employeename, password) {
@@ -42,8 +42,8 @@ export class EmployeesService {
     //     this.router.navigate(['/account/login']);
     // }
 
-    register(Employee: Employee) {
-        return this.http.post(`${environment.apiUrl}/employees/register`, Employee);
+    registerempl(employee: Employee) {
+        return this.http.post(`${environment.apiUrl}/employees/register`, employee);
     }
 
     getAllempl() {
@@ -51,33 +51,42 @@ export class EmployeesService {
     }
 
     getById(id: string) {
-        return this.http.get<Employee>(`${environment.apiUrl}/employee/${id}`);
+        return this.http.get<Employee>(`${environment.apiUrl}/employees/${id}`);
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/employee/${id}`, params)
-            .pipe(map(x => {
-                // update stored Employee if the logged in Employee updated their own record
-                if (id == this.EmployeeValue.id) {
-                    // update local storage
-                    const Employee = { ...this.EmployeeValue, ...params };
-                    localStorage.setItem('employee', JSON.stringify(Employee));
+        
 
-                    // publish updated Employee to subscribers
-                    this.EmployeeSubject.next(Employee);
-                }
-                return x;
-            }));
+        console.log("service")
+ 
+        return this.http.put(`${environment.apiUrl}/employees/${id}`, params)
+        // .pipe(map(x => {
+        //     // update stored user if the logged in user updated their own record
+        //     if (id == this.employeeValue.id) {
+        //         // update local storage
+        //         const user = { ...this.employeeValue, ...params };
+        //         localStorage.setItem('employee', JSON.stringify(employee));
+
+        //         // publish updated user to subscribers
+        //         this.employeeSubject.next(employee);
+        //     }
+        //     return x;
+        // }));
     }
 
     deleteEmpl(id: string) {
+        console.log(`${id}`)
         return this.http.delete(`${environment.apiUrl}/employee/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in Employee deleted their own record
-                // if (id == this.EmployeeValue.id) {
-                //     this.logout();
-                // }
-                return x;
-            }));
+
+        
+            // .pipe(map(x => {
+            //     // auto logout if the logged in Employee deleted their own record
+            //     // if (id == this.EmployeeValue.id) {
+            //     //     this.logout();
+            //     // }
+            //     return x;
+            // }
+            
+            // ));
     }
 }

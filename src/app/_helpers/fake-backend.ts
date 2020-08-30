@@ -46,12 +46,19 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         case url.endsWith("/employees") && method === "GET":
           return getEmployees();
-        // case url.match(/\/employees\/\d+$/) && method === "GET":
-        //   return getEmployeesrById();
-        // case url.match(/\/employees\/\d+$/) && method === "PUT":
-        //   return updatEemployees();
-        // case url.match(/\/Employeess\/\d+$/) && method === "DELETE":
-        //   return deleteEmployees();
+
+          case url.endsWith("/employees/register") && method === "POST":
+            return registerempl();
+
+        case url.match(/\/employees\/\d+$/) && method === "GET":
+          return getEmployeeById();
+
+
+        case url.match(/\/employees\/\d+$/) && method === "PUT":
+          return updateEmployee();
+
+        case url.match(/\/employee\/\d+$/) && method === "DELETE":
+          return deleteEmployee();
 
         default:
           // pass through any requests not handled above
@@ -89,6 +96,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok();
     }
 
+    function registerempl() {
+      const employee = body;
+
+      // if (users.find((x) => x.username === user.username)) {
+      //   return error('Username "' + user.username + '" is already taken');
+      // }
+
+      employee.id = employees.length ? Math.max(...employees.map((x) => x.id)) + 1 : 1;
+
+      employees.push(employee);
+      localStorage.setItem("employees", JSON.stringify(employees));
+      return ok();
+    }
+
     function getUsers() {
       if (!isLoggedIn()) return unauthorized();
       return ok(users);
@@ -105,6 +126,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
       const user = users.find((x) => x.id === idFromUrl());
       return ok(user);
+    }
+
+
+    function getEmployeeById() {
+      if (!isLoggedIn()) return unauthorized();
+
+      const employee = employees.find((x) => x.id === idFromUrl());
+      return ok(employee);
     }
 
     function updateUser() {
@@ -125,11 +154,41 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       return ok();
     }
 
+
+    function updateEmployee() {
+      // if (!isLoggedIn()) return unauthorized();
+
+      let params = body;
+      let employee = employees.find((x) => x.id === idFromUrl());
+
+      // only update password if entered
+      // if (!params.password) {
+      //   delete params.password;
+      // }
+
+      // update and save user
+      Object.assign(employee, params);
+      localStorage.setItem("employees", JSON.stringify(employees));
+
+      return ok();
+    }
+
+
+
     function deleteUser() {
       if (!isLoggedIn()) return unauthorized();
 
       users = users.filter((x) => x.id !== idFromUrl());
       localStorage.setItem("users", JSON.stringify(users));
+      return ok();
+    }
+
+
+    function deleteEmployee() {
+      if (!isLoggedIn()) return unauthorized();
+
+      employees = employees.filter((x) => x.id !== idFromUrl());
+      localStorage.setItem("employees", JSON.stringify(employees));
       return ok();
     }
 

@@ -1,5 +1,10 @@
 ﻿<h1>Employees</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Employee</a>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Employee</a> 
+<div class="search-wrapper m-b-1 w-50">
+   
+      <input [(ngModel)]="searchText" class="form-control form-control-dark w-150"  type="text"   placeholder="Search employee..." aria-label="Search">
+    
+</div>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -12,27 +17,29 @@
             <th style="width: 10%">Date of Birdth </th>
             <th style="width: 10%">Salary</th>
             <th style="width: 10%">Create</th>
-            <th style="width: 10%"></th>        
+            <th style="width: 10%"></th>
         </tr>
-  
+
     </thead>
     <tbody>
-        <tr *ngFor="let employee of employees"> 
-            <td>{{title.employee}}</td>
-            <td>{{firstName.employee}}</td>
-            <td>{{middleName.employee}}</td>
-            <td>{{lastName.employee}}</td>
-            <td>{{phone.employee}}</td>
-            <td>{{position.employee}}</td>
-            <td>{{dob.employee}}</td>
-            <td>{{salary.employee}}</td>
-            <td>{{user.employee}}</td>
-            <td>{{ dtcreate.employee}}</td>
+        <tr *ngFor="let employee of employees |  filter : searchText">
 
-         
+
+            <td>{{employee.title}}</td>
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.middleName}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.position}}</td>
+            <td>{{employee.dob}}</td>
+            <td>{{employee.salary}}</td>
+            <td>{{employee.dtcreate}}</td>
+
+
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{employee.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deleteEmployee(employee.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
+                <button (click)="deleteEmployee(employee.id)" class="btn btn-sm btn-danger btn-delete-user"
+                    [disabled]="employee.isDeleting">
                     <span *ngIf="employee.isDeleting" class="spinner-border spinner-border-sm"></span>
                     <span *ngIf="!employee.isDeleting">Delete</span>
                 </button>
@@ -43,5 +50,5 @@
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
         </tr>
-    </tbody> 
-</table> 
+    </tbody>
+</table>

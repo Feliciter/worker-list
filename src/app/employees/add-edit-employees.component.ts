@@ -23,24 +23,24 @@ export class AddEditEmployeesComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params["id"];
-    this.isAddMode = !this.id;
+    this.isAddMode = !this.id;  
 
     // password not required in edit mode
-    const passwordValidators = [Validators.minLength(6)];
-    if (this.isAddMode) {
-      passwordValidators.push(Validators.required);
-    }
+    // const passwordValidators = [Validators.minLength(6)];
+    // if (this.isAddMode) {
+    //   passwordValidators.push(Validators.required);
+    // }
 
     this.form = this.formBuilder.group({
-      title: ["", Validators.required],
+      title: [""],
       firstName: ["", Validators.required],
-      middleName: ["", Validators.required],
+      middleName: [""],
       lastName: ["", Validators.required],
       phone: ["", Validators.required],
       position: ["", Validators.required],
       dob: ["", Validators.required],
       salary: ["", Validators.required],
-      addinfo: ["", Validators.required],
+      addinfo: [""]
     });
 
     if (!this.isAddMode) {
@@ -80,19 +80,21 @@ export class AddEditEmployeesComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
+      
       this.createEmployee();
     } else {
+      
       this.updateEmployee();
     }
   }
 
   private createEmployee() {
     this.employeesService
-       .register(this.form.value)
+       .registerempl(this.form.value)
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success("employee added successfully", {
+          this.alertService.success("Employee added successfully", {
             keepAfterRouteChange: true,
           });
           this.router.navigate([".", { relativeTo: this.route }]);
@@ -105,20 +107,23 @@ export class AddEditEmployeesComponent implements OnInit {
   }
 
   private updateEmployee() {
-    this.employeesService
-      .update(this.id, this.form.value)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.alertService.success("Update successful", {
-            keepAfterRouteChange: true,
-          });
-          this.router.navigate(["..", { relativeTo: this.route }]);
-        },
-        (error) => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
+
+    console.log('updateEmployee')
+
+    // this.employeesService
+    //   .update(this.id, this.form.value)
+    //   .pipe(first())
+    //   .subscribe(
+    //     (data) => {
+    //       this.alertService.success("Update successful", {
+    //         keepAfterRouteChange: true,
+    //       });
+    //       this.router.navigate(["..", { relativeTo: this.route }]);
+    //     },
+    //     (error) => {
+    //       this.alertService.error(error);
+    //       this.loading = false;
+    //     }
+    //   );
   }
 }

@@ -2,8 +2,10 @@
 import { first } from 'rxjs/operators';
 import { EmployeesService } from '../_services';
 
+
 @Component({ templateUrl: 'list-employees.component.html' })
 export class ListEmployeesComponent implements OnInit {
+    searchText;
     employees = null;
 
     constructor(private employeesService: EmployeesService) {}
