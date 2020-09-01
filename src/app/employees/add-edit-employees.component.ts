@@ -28,16 +28,15 @@ export class AddEditEmployeesComponent implements OnInit {
         this.isAddMode = !this.id;
 
         this.form = this.formBuilder.group({
-            gender: ["", Validators.required],
-
+            gender: [""],
             firstName: ["", Validators.required],
             middleName: [""],
             lastName: ["", Validators.required],
             phone: ["", Validators.pattern("^[0-9]*$")],
             position: ["", Validators.required],
             dob: ["", Validators.required],
-            salary: ["", Validators.required],
-            addinfo: [""],
+            salary: ["", Validators.required]
+           
         });
 
         if (!this.isAddMode) {
@@ -53,7 +52,7 @@ export class AddEditEmployeesComponent implements OnInit {
                     this.f.position.setValue(x.position);
                     this.f.dob.setValue(x.dob);
                     this.f.salary.setValue(x.salary);
-                    this.f.addinfo.setValue(x.addinfo);
+                    
                 });
         }
     }

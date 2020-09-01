@@ -78,6 +78,8 @@
                 <label for="dob">Date of birth</label>
 
                 <input id="dob" type="date" formControlName="dob" class="form-control"
+                [ngModel] ="f.dob.value | date:'yyyy-MM-dd'" 
+                       
                     [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
                 <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
                     <div *ngIf="f.dob.errors.required">Date of birth is required</div>
