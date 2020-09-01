@@ -1,4 +1,4 @@
-﻿import { Router, ActivatedRoute } from "@angular/router";
+﻿
 import { Component, OnInit, NgZone } from "@angular/core";
 import { first } from "rxjs/operators";
 import { EmployeesService } from "../_services";
@@ -9,10 +9,8 @@ export class ListEmployeesComponent implements OnInit {
   employees = null;
 
   constructor(
-    private employeesService: EmployeesService,
-    private router: Router,
-    private ngZone: NgZone,
-    private actRoute: ActivatedRoute
+    private employeesService: EmployeesService
+ 
   ) {}
 
   ngOnInit() {
