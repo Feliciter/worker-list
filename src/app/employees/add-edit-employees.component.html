@@ -76,11 +76,9 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="dob">Date of birth</label>
-
                 <input id="dob" type="date" formControlName="dob" class="form-control"
-                [ngModel] ="f.dob.value | date:'yyyy-MM-dd'" 
-                       
-                    [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" />
+                [ngModel] ="f.dob.value | date:'yyyy-MM-dd'"                      
+                    />
                 <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
                     <div *ngIf="f.dob.errors.required">Date of birth is required</div>
                 </div>
@@ -89,11 +87,8 @@
         <div class="form-row">
             <div class="form-group col">
                 <label for="salary">Salary ($)</label>
-                <input id="salary" type="number" formControlName="salary" class="form-control"
-                    [ngClass]="{ 'is-invalid': submitted && f.salary.errors }" />
-                <div *ngIf="submitted && f.salary.errors" class="invalid-feedback">
-                    <div *ngIf="f.salary.errors.required">salary is required</div>
-                  </div>
+                <input id="salary" type="number" min="0" formControlName="salary" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.salary.errors }" />               
             </div>
         </div>
 

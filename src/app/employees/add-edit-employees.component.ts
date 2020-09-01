@@ -34,8 +34,8 @@ export class AddEditEmployeesComponent implements OnInit {
             lastName: ["", Validators.required],
             phone: ["", Validators.pattern("^[0-9]*$")],
             position: ["", Validators.required],
-            dob: ["", Validators.required],
-            salary: ["", Validators.required]
+            dob: [""],
+            salary: [""]
            
         });
 
