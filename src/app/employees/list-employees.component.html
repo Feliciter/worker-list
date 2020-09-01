@@ -25,9 +25,6 @@
     </thead>
     <tbody>
         <tr *ngFor="let employee of employees |  filter : searchText ">
-
-
-
             <td>{{employee.firstName}}</td>
             <td>{{employee.middleName}}</td>
             <td>{{employee.lastName}}</td>
@@ -36,9 +33,7 @@
             <td>{{employee.position}}</td>
             <td>{{employee.dob | date:'fullDate'}}</td>
             <td>{{employee.salary}}</td>
-            <td>{{employee.createdDate |date:"dd/mm/yyyy"}}</td>
-
-
+            <td>{{employee.createdDate | date:"yyyy-MM-dd" }}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{employee._id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
                 <button (click)="deleteEmployee(employee._id)" class="btn btn-sm btn-danger btn-delete-user">
