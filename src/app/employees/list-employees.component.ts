@@ -24,10 +24,14 @@ export class ListEmployeesComponent implements OnInit {
 
   deleteEmployee(id: string): void {
     if (window.confirm("Are you sure")) {
-      this.employeesService.deleteEmpl(id).subscribe(() => {
-        this.ngZone.run(() => this.router.navigateByUrl("/employees"));
-        window.location.reload();
-      });
+      const employee = this.employees.find((x) => x._id === id);
+      employee.isDeleting = true;
+      this.employeesService
+        .deleteEmpl(id)
+        .pipe(first())
+        .subscribe(() => {
+          this.employees = this.employees.filter((x) => x._id !== id);
+        });
     }
   }
 }
