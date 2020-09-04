@@ -7,7 +7,7 @@
 
 
 1. Backend https://github.com/Feliciter/worker-list-backend (MongoDB, Express, Node )
-2. Frontend  https://github.com/Feliciter/worker-list (Anngular)
+2. Frontend  https://github.com/Feliciter/worker-list (Angular)
 ( refresh page to wake up Heroku backend )
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.1.
